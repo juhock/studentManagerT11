@@ -6,9 +6,9 @@ const seed = async () => {
     data: {
       username: "foo",
       password: "bar",
-      tasks: {
+      students: {
         create: [
-          { description: "task 1" },
+          { firstName: "Bob", lastName:"Bobbert", email: "x@gmail.com", imageUrl: "www.google.com", gpa: 3.0 },
           { description: "task 2" },
           { description: "task 3" },
         ],
