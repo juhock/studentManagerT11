@@ -15,7 +15,7 @@ router.use((req, res, next) => {
 /** Sends all students */
 router.get("/", async (req, res, next) => {
   try {
-    console.log(res)
+    // console.log(res)
     const students = await prisma.students.findMany()
       // where: { userId: res.locals.user.id },
       // res.send(students)
