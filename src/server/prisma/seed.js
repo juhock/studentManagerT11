@@ -8,9 +8,9 @@ const seed = async () => {
       password: "bar",
       students: {
         create: [
-          { firstName: "Bob", lastName:"Bobbert", email: "x@gmail.com", imageUrl: "www.google.com", gpa: 3.0 },
-          { description: "task 2" },
-          { description: "task 3" },
+          { firstName: "Scott", lastName:"Bobbert", email: "xyz@gmail.com", imageUrl: "www.google.com", gpa: 4.0 },
+          { firstName: "Julia", lastName:"Bobbert", email: "zyx@gmail.com", imageUrl: "www.google.com", gpa: 4.0 },
+          { firstName: "Yingshi", lastName:"Bobbert", email: "zxy@gmail.com", imageUrl: "www.google.com", gpa: 4.0 }
         ],
       },
     },
