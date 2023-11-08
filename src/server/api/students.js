@@ -4,7 +4,7 @@ const prisma = require("../prisma");
 const router = require("express").Router();
 module.exports = router;
 
-/** User must be logged in to access tasks. */
+/** User must be logged in to access students. */
 router.use((req, res, next) => {
   if (!res.locals.user) {
     return next(new ServerError(401, "You must be logged in."));
@@ -21,10 +21,10 @@ router.get("/", async (req, res, next) => {
     res.json(students);
   } catch (err) {
     next(err);
-  }
+}
 });
 
-/** Creates new task and sends it */
+/** Creates new student and sends it */
 router.post("/", async (req, res, next) => {
   try {
     const { description, done } = req.body;
@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-/** Checks if task exists and belongs to given user */
+/** Checks if student exists and belongs to given user */
 const validateTask = (user, task) => {
   if (!task) {
     throw new ServerError(404, "Task not found.");
@@ -56,7 +56,7 @@ const validateTask = (user, task) => {
   }
 };
 
-/** Sends single task by id */
+/** Sends single student by id */
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
@@ -70,7 +70,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/** Updates single task by id */
+/** Updates single student by id */
 router.put("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
@@ -89,7 +89,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-/** Deletes single task by id */
+/** Deletes single student by id */
 router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
