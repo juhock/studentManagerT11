@@ -3,12 +3,12 @@ import api from "../../store/api";
 const tasksApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getTasks: builder.query({
-      query: () => "/tasks",
-      providesTags: ["Tasks"],
+      query: () => '/tasks',
+      providesTags: ['Students']
     }),
     getTask: builder.query({
       query: (id) => `/tasks/${id}`,
-      providesTags: ["Tasks"],
+      providesTags: ['Student']
     }),
     createTask: builder.mutation({
       query: (task) => ({
