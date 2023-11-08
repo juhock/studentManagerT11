@@ -12,13 +12,13 @@ router.use((req, res, next) => {
   next();
 });
 
-/** Sends all tasks */
+/** Sends all students */
 router.get("/", async (req, res, next) => {
   try {
-    const tasks = await prisma.task.findMany({
+    const students = await prisma.task.findMany({
       where: { userId: res.locals.user.id },
     });
-    res.json(tasks);
+    res.json(students);
   } catch (err) {
     next(err);
   }
