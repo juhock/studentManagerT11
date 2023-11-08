@@ -6,11 +6,11 @@ const seed = async () => {
     data: {
       username: "foo",
       password: "bar",
-      tasks: {
+      students: {
         create: [
-          { description: "task 1" },
-          { description: "task 2" },
-          { description: "task 3" },
+          { firstName: "Scott", lastName:"Bobbert", email: "xyz@gmail.com", imageUrl: "www.google.com", gpa: 4.0 },
+          { firstName: "Julia", lastName:"Bobbert", email: "zyx@gmail.com", imageUrl: "www.google.com", gpa: 4.0 },
+          { firstName: "Yingshi", lastName:"Bobbert", email: "zxy@gmail.com", imageUrl: "www.google.com", gpa: 4.0 }
         ],
       },
     },
