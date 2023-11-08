@@ -2,18 +2,29 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import NewStudent from "./NewStudent";
 import Student from "./Student";
-import { useGetStudentsQuery } from "./studentSlice";
+import { useGetStudentsQuery, useDeleteStudentMutation } from "./studentSlice";
 
 import "./Students.less";
+
 
 /** Main interface for user to interact with their students */
 export default function Students() {
   const token = useSelector(selectToken);
   const response = useGetStudentsQuery();
+  const [deleteStudent] = useDeleteStudentMutation();
+
   console.log("studentsQuery:", useGetStudentsQuery());
   console.log("student query data:", useGetStudentsQuery().data);
 
   const studentList = response.data;
+
+ /** Deletes the student */
+ const onDelete = async (evt) => {
+  evt.preventDefault();
+  deleteStudent(student.id);
+
+};
+
 
   if (!response.data) {
     return <div>Loading</div>;

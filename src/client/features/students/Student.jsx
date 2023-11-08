@@ -1,47 +1,35 @@
 import { useState } from "react";
 import {
-  useDeleteStudentMutation,
   useEditStudentMutation,
 } from "./studentSlice";
 
-/** Allows user to read, update, and delete a student */
+/** Allows user to read and update a student */
 export default function Student({ student }) {
   const [editStudent] = useEditStudentMutation();
-  const [deleteStudent] = useDeleteStudentMutation();
 
-  const [description, setDescription] = useState(student.description);
 
   /** Updates the student's `done` status */
-  const toggleStudent = async (evt) => {
-    const done = evt.target.checked;
-    editStudent({ ...student, done });
-  };
+  // const toggleStudent = async (evt) => {
+  //   const done = evt.target.checked;
+  //   editStudent({ ...student, done });
+  // };
 
-  /** Saves the student's description */
-  const save = async (evt) => {
+  /** Updates the student's description */
+  const update = async (evt) => {
     evt.preventDefault();
-    editStudent({ ...student, description });
+    editStudent(student);
   };
 
-  /** Deletes the student */
-  const onDelete = async (evt) => {
-    evt.preventDefault();
-    deleteStudent(student.id);
-  };
-
+ 
   return (
     <li>
-      <form onSubmit={save}>
-        <input
-          type="checkbox"
-          checked={student.done}
-          onChange={toggleStudent}
-        />
+      <form onSubmit={update}>
+      
         <label>
           First Name:
           <input
             type="text"
-            value={firstName}
+            value={student.firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
@@ -51,7 +39,7 @@ export default function Student({ student }) {
           Last Name:
           <input
             type="text"
-            value={lastName}
+            value={student.lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
@@ -61,7 +49,7 @@ export default function Student({ student }) {
           Email:
           <input
             type="email"
-            value={email}
+            value={student.email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -71,7 +59,7 @@ export default function Student({ student }) {
           Image Url:
           <input
             type="text"
-            value={imageUrl}
+            value={student.imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             required
           />
@@ -81,15 +69,14 @@ export default function Student({ student }) {
           GPA:
           <input
             type="number"
-            value={gpa}
+            value={student.gpa}
             onChange={(e) => setGpa(e.target.value)}
             required
           />
         </label>
 
-        <button>Save</button>
-        <button onClick={onDelete} aria-label="delete">
-          🞪
+        <button onClick={update} aria-label="update">
+          Update
         </button>
       </form>
     </li>

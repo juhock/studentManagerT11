@@ -21,7 +21,7 @@ const studentsApi = api.injectEndpoints({
     editStudent: builder.mutation({
       query: (student) => ({
         url: `/students/${student.id}`,
-        method: "PUT",
+        method: "PATCH",
         body: student,
       }),
       invalidatesTags: ["Students"],
