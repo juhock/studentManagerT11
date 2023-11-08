@@ -1,6 +1,6 @@
 const prisma = require("../prisma");
 
-/** Seeds the database with a user and some tasks */
+/** Seeds the database with a user and some students */
 const seed = async () => {
   await prisma.user.create({
     data: {

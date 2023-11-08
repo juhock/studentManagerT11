@@ -36,14 +36,14 @@ router.post("/", async (req, res, next) => {
       throw new ServerError(400, "Description required.");
     }
 
-    const task = await prisma.task.create({
+    const student = await prisma.student.create({
       data: {
         description,
         done: done ?? false,
         user: { connect: { id: res.locals.user.id } },
       },
     });
-    res.json(task);
+    res.json(student);
   } catch (err) {
     next(err);
   }
@@ -80,14 +80,14 @@ router.put("/:id", async (req, res, next) => {
     const id = +req.params.id;
     const { description, done } = req.body;
 
-    const task = await prisma.task.findUnique({ where: { id } });
-    validateTask(res.locals.user, task);
+    const student = await prisma.student.findUnique({ where: { id } });
+    validateStudent(res.locals.user, student);
 
-    const updatedTask = await prisma.task.update({
+    const updatedStudent = await prisma.student.update({
       where: { id },
       data: { description, done },
     });
-    res.json(updatedTask);
+    res.json(updatedStudent);
   } catch (err) {
     next(err);
   }
@@ -99,10 +99,10 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const task = await prisma.task.findUnique({ where: { id } });
-    validateTask(res.locals.user, task);
+    const student = await prisma.student.findUnique({ where: { id } });
+    validateStudent(res.locals.user, student);
 
-    await prisma.task.delete({ where: { id } });
+    await prisma.student.delete({ where: { id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);
