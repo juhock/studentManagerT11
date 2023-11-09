@@ -1,47 +1,44 @@
-const { ServerError } = require("../errors");
-const prisma = require("../prisma");
+const { ServerError } = require('../errors');
+const prisma = require('../prisma');
 
-const router = require("express").Router();
+const router = require('express').Router();
 module.exports = router;
 
 /** User must be logged in to access students. */
 router.use((req, res, next) => {
   if (!res.locals.user) {
-    return next(new ServerError(401, "You must be logged in."));
+    return next(new ServerError(401, 'You must be logged in.'));
   }
   next();
 });
 
 /** Sends all students */
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const students = await prisma.students.findMany( 
-    //   {
-    //   where: { userId: res.locals.user.id },
-    // }
-    ) 
+    const students = await prisma.students.findMany({
+      where: { userId: res.locals.user.id }
+    });
+    //console.log(res.locals);
     res.json(students);
   } catch (err) {
     next(err);
-}
+  }
 });
 
-
-//todo 
 /** Creates new student and sends it */
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const { description, done } = req.body;
     if (!description) {
-      throw new ServerError(400, "Description required.");
+      throw new ServerError(400, 'Description required.');
     }
 
     const student = await prisma.student.create({
       data: {
         description,
         done: done ?? false,
-        user: { connect: { id: res.locals.user.id } },
-      },
+        user: { connect: { id: res.locals.user.id } }
+      }
     });
     res.json(student);
   } catch (err) {
@@ -55,8 +52,8 @@ const validateStudent = (user, student) => {
   if (!student) {
     throw new ServerError(404, 'Student not found.');
   }
-  console.log('userId:', user.id);
-  console.log('studentId:', student.userId);
+  // console.log('userId:', user.id);
+  // console.log('studentId:', student.userId);
   if (student.userId !== user.id) {
     throw new ServerError(403, 'This student does not belong to you.');
   }
@@ -75,7 +72,7 @@ router.get('/:id', async (req, res, next) => {
 
 //todo
 /** Updates single student by id */
-router.put("/:id", async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const id = +req.params.id;
     const { description, done } = req.body;
@@ -85,7 +82,7 @@ router.put("/:id", async (req, res, next) => {
 
     const updatedStudent = await prisma.student.update({
       where: { id },
-      data: { description, done },
+      data: { description, done }
     });
     res.json(updatedStudent);
   } catch (err) {
@@ -95,7 +92,7 @@ router.put("/:id", async (req, res, next) => {
 
 //todo
 /** Deletes single student by id */
-router.delete("/:id", async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const id = +req.params.id;
 
