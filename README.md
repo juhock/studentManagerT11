@@ -1,6 +1,6 @@
 # Full-stack Template
 
-This template provides a fully functional CRUD app. Once a user has successfully registered for an account and logged in, they can see their existing tasks, create new tasks, update existing tasks, and delete tasks.
+This template provides a fully functional CRUD app. Once a user has successfully registered for an account and logged in, they can see their existing students, create new students, update existing students, and delete students.
 
 ## Getting Started
 
@@ -34,14 +34,14 @@ Table User {
   password  String
 }
 
-Table Task {
+Table Student {
   id          Serial  [pk]
   description String
   done        Boolean
   userId      Int
 }
 
-Ref: User.id < Task.userId
+Ref: User.id < Student.userId
 ```
 
 </details>
