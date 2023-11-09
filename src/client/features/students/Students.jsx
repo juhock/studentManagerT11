@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectToken } from '../auth/authSlice';
 import NewStudent from './NewStudent';
-import { useGetStudentsQuery } from './studentSlice';
+import { useGetStudentsQuery, useDeleteStudentMutation } from './studentSlice';
 import { Link } from 'react-router-dom';
 
 import './Students.less';
@@ -10,8 +10,7 @@ import './Students.less';
 export default function Students() {
   const token = useSelector(selectToken);
   const { data: response, isLoading } = useGetStudentsQuery();
-  // const [deleteStudent] = useDeleteStudentMutation();
-  console.log(response);
+  const [deleteStudent] = useDeleteStudentMutation();
 
   // console.log('studentsQuery:', useGetStudentsQuery());
   // console.log('student query data:', useGetStudentsQuery().data);
@@ -20,14 +19,11 @@ export default function Students() {
   // console.log('studentList:', studentList);
 
   /** Deletes the student */
-  // const onDelete = async (evt) => {d
-  //   evt.preventDefault();
-  //   deleteStudent(student.id);
-  // };
-
-  // if (isLoading) {
-  //   return <div>Loading</div>;
-  // }
+  const onDelete = async (evt) => {
+    evt.preventDefault();
+    await deleteStudent(response.id);
+    console.log('newResponseessss:', response);
+  };
 
   if (!token) {
     return <p>You must be logged in to see your students.</p>;
@@ -46,6 +42,7 @@ export default function Students() {
           <li key={student.id}>
             {' '}
             <Link to={`/students/${student.id}`}>{student.firstName}</Link>
+            <button onClick={onDelete}>DELETE</button>
           </li>
         ))}
       </ul>

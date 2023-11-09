@@ -75,14 +75,21 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const id = +req.params.id;
-    const { description, done } = req.body;
+    const { firstName, lastName, email, imageUrl, gpa } = req.body;
 
     const student = await prisma.student.findUnique({ where: { id } });
+
+    if (!student) {
+      return next({
+        status: 404,
+        message: "couldn't find a student"
+      });
+    }
     validateStudent(res.locals.user, student);
 
     const updatedStudent = await prisma.student.update({
       where: { id },
-      data: { description, done }
+      data: { firstName, lastName, email, imageUrl, gpa }
     });
     res.json(updatedStudent);
   } catch (err) {
