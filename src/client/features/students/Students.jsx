@@ -1,23 +1,23 @@
 import { useSelector } from 'react-redux';
 import { selectToken } from '../auth/authSlice';
 import NewStudent from './NewStudent';
-import Student from './Student';
-import { useGetStudentsQuery, useDeleteStudentMutation } from './studentSlice';
+import { useGetStudentsQuery } from './studentSlice';
+import { Link } from 'react-router-dom';
 
 import './Students.less';
-import StudentDetail from './StudentDetail';
 
 /** Main interface for user to interact with their students */
 export default function Students() {
   const token = useSelector(selectToken);
-  const response = useGetStudentsQuery();
-  const [deleteStudent] = useDeleteStudentMutation();
+  const { data: response, isLoading } = useGetStudentsQuery();
+  // const [deleteStudent] = useDeleteStudentMutation();
+  console.log(response);
 
   // console.log('studentsQuery:', useGetStudentsQuery());
   // console.log('student query data:', useGetStudentsQuery().data);
 
-  const studentList = response.data;
-  console.log('studentList:', studentList);
+  // const studentList = response.data;
+  // console.log('studentList:', studentList);
 
   /** Deletes the student */
   // const onDelete = async (evt) => {d
@@ -25,28 +25,30 @@ export default function Students() {
   //   deleteStudent(student.id);
   // };
 
-  if (!response.data) {
-    return <div>Loading</div>;
-  }
-
-  // if (!token) {
-  //   return <p>You must be logged in to see your students.</p>;
+  // if (isLoading) {
+  //   return <div>Loading</div>;
   // }
 
-  return (
+  if (!token) {
+    return <p>You must be logged in to see your students.</p>;
+  }
+
+  return isLoading ? (
+    <p>is loading..</p>
+  ) : (
     <div className='students'>
       <h1>Students</h1>
       <h2>Add New Student</h2>
       <NewStudent />
       <h2>Your Students</h2>
-      {response.isLoading && <p>Loading students...</p>}
-      {studentList && (
-        <ul>
-          {studentList.map((student) => (
-            <StudentDetail key={student.id} student={student} />
-          ))}
-        </ul>
-      )}
+      <ul>
+        {response.map((student) => (
+          <li key={student.id}>
+            {' '}
+            <Link to={`/students/${student.id}`}>{student.firstName}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
