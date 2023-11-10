@@ -1,23 +1,15 @@
-// import Students from './Students';
+import React from 'react';
 import StudentForm from './StudentForm';
-import { useGetStudentQuery, useEditStudentMutation } from './studentSlice';
+import { useGetStudentQuery } from './studentSlice';
 import { useParams } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 
 export default function StudentDetail() {
   const { id } = useParams();
   const { data: student, isLoading } = useGetStudentQuery(id);
-  console.log('amIUndefined?:', student);
-  const [editStudent] = useEditStudentMutation(student);
 
   // if (!isLoading) {
   //   return <p>Is Loading</p>;
   // }
-
-  const onEdit = async (evt) => {
-    evt.preventDefault();
-    await editStudent();
-  };
 
   return isLoading ? (
     <p>Is loading...</p>
@@ -26,7 +18,7 @@ export default function StudentDetail() {
       <h1>{student.firstName}</h1>
       <h2>{student.lastName}</h2>
       <h2>{student.email}</h2>
-      <img src={student.imgaeUrl} alt={student.firstName} />
+      <img src={student.imageUrl} alt={student.firstName} />
       <p>{student.gpa}</p>
       <StudentForm id={student.id} />
       {/* <form onSubmit={onEdit}>

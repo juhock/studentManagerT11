@@ -77,7 +77,7 @@ router.put('/:id', async (req, res, next) => {
     const id = +req.params.id;
     const { firstName, lastName, email, imageUrl, gpa } = req.body;
 
-    const student = await prisma.student.findUnique({ where: { id } });
+    const student = await prisma.students.findUnique({ where: { id } });
 
     if (!student) {
       return next({
@@ -87,7 +87,7 @@ router.put('/:id', async (req, res, next) => {
     }
     validateStudent(res.locals.user, student);
 
-    const updatedStudent = await prisma.student.update({
+    const updatedStudent = await prisma.students.update({
       where: { id },
       data: { firstName, lastName, email, imageUrl, gpa }
     });

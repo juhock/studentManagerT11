@@ -1,4 +1,4 @@
-import api from "../../store/api";
+import api from '../../store/api';
 
 const studentsApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,28 +12,28 @@ const studentsApi = api.injectEndpoints({
     }),
     createStudent: builder.mutation({
       query: (student) => ({
-        url: "/students",
-        method: "POST",
-        body: student,
+        url: '/students',
+        method: 'POST',
+        body: student
       }),
-      invalidatesTags: ["Students"],
+      invalidatesTags: ['Students']
     }),
     editStudent: builder.mutation({
       query: (student) => ({
         url: `/students/${student.id}`,
-        method: "PATCH",
-        body: student,
+        method: 'PUT',
+        body: student
       }),
-      invalidatesTags: ["Students"],
+      invalidatesTags: ['Students']
     }),
     deleteStudent: builder.mutation({
       query: (id) => ({
         url: `/students/${id}`,
-        method: "DELETE",
+        method: 'DELETE'
       }),
-      invalidatesTags: ["Students"],
-    }),
-  }),
+      invalidatesTags: ['Students']
+    })
+  })
 });
 
 export const {
@@ -41,5 +41,5 @@ export const {
   useGetStudentQuery,
   useCreateStudentMutation,
   useEditStudentMutation,
-  useDeleteStudentMutation,
+  useDeleteStudentMutation
 } = studentsApi;
